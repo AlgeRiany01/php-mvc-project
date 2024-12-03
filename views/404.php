@@ -4,7 +4,7 @@
 
 
 
-<div class=" container mx-auto my-5">
+<div class=" mx-10 my-5">
 <p>Ops ! , Page Not Found</p>
 <a href="/"> go to home page</a>
 </div>

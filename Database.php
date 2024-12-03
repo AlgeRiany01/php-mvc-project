@@ -13,9 +13,9 @@ class Database
         ]);
     }
 
-    public function query($query) {
+    public function query($query, $params = []) {
         $statement = $this->con->prepare($query);
-        $statement->execute();
+        $statement->execute($params);
         return $statement;
     }
 }
