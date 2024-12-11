@@ -5,7 +5,7 @@
 
 
 <div class=" mx-10 my-5">
-<p>Ops ! , Page Not Found</p>
+<p>Ops ! , Unauthorized</p>
 <a href="/" class="text-blue-500 hover:underline">  go to home page</a>
 </div>
 
