@@ -1,8 +1,6 @@
-<?php require 'template/header.php' ?>
-<?php require 'template/nav.php' ?>
-
-
-<?php require 'template/banner.php' ?>
+<?php require base_path('views/template/header.php')  ?>
+<?php require base_path( 'views/template/nav.php') ?>
+<?php require base_path( 'views/template/banner.php') ?>
 
 
 
@@ -14,5 +12,4 @@
 
 
 
-
-<?php require 'template/footer.php' ?>
+<?php require base_path('views/template/footer.php') ?>

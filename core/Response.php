@@ -1,6 +1,7 @@
 <?php
 
 
+namespace core;
 
 class Response {
     const FORBIDDEN = 403;
