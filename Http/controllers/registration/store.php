@@ -4,6 +4,7 @@ use Core\Database;
 use core\Validator;
 use core\App;
 
+
 $email = $_POST['email'];
 $password = $_POST['password'];
 
@@ -35,13 +36,9 @@ $user = $db->query('select * from users where email = ?', [$email])->find();
 
 if ($user) {
 
-    header('location: /');
-    exit();
-} else {
-    $db->query("INSERT INTO users(email,password) VALUES(?,?)", [$email, password_hash($password, PASSWORD_BCRYPT)]);
-
-    login($user);
-
-    header('location: /');
-    exit();
+    redirect('/');
 }
+
+
+$db->query("INSERT INTO users(email,password) VALUES(?,?)", [$email, password_hash($password, PASSWORD_BCRYPT)]);
+redirect('/login');
