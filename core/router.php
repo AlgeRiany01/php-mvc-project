@@ -1,72 +1,75 @@
 <?php
+
 namespace core;
 
-class Router{
-    protected $routes=[];
-    public function get($uri,$controller){
-        $this->routes[] = [
-            'uri' => $uri,
-            'controller' => $controller,
-            'method' => 'GET'
-        ];
-    }
+use core\Middleware\Guest;
+use core\Middleware\Middleware;
 
-    public function post($uri,$controller)
+class Router
+{
+    protected $routes = [];
+    public function add($method, $uri, $controller)
     {
         $this->routes[] = [
             'uri' => $uri,
             'controller' => $controller,
-            'method' => 'POST'
+            'method' => $method
         ];
+        return $this;
     }
 
-    public function delete($uri,$controller)
+    public function get($uri, $controller)
     {
-        $this->routes[] = [
-            'uri' => $uri,
-            'controller' => $controller,
-            'method' => 'DELETE'
-        ];
+        return  $this->add('GET', $uri, $controller);
     }
 
-    public function patch($uri,$controller)
+    public function post($uri, $controller)
     {
-        $this->routes[] = [
-            'uri' => $uri,
-            'controller' => $controller,
-            'method' => 'PATCH'
-        ];
+        return  $this->add('POST', $uri, $controller);
     }
 
-    public function put($uri,$controller)
+    public function delete($uri, $controller)
     {
-        $this->routes[] = [
-            'uri' => $uri,
-            'controller' => $controller,
-            'method' => 'PUT'
-        ];
+        return  $this->add('DELETE', $uri, $controller);
     }
 
-    public function route($uri,$method)
+    public function patch($uri, $controller)
     {
-        foreach($this->routes as $route){
-            if($route['uri'] == $uri && $route['method'] == strtoupper($method)){
-              return  require  base_path($route['controller']);
+        return  $this->add('PATCH', $uri, $controller);
+    }
+
+    public function put($uri, $controller)
+    {
+        return  $this->add('PUT', $uri, $controller);
+    }
+
+
+    public function only($key)
+    {
+        $this->routes[array_key_last($this->routes)]['middleware'] = $key;
+        return $this;
+    }
+
+
+    public function route($uri, $method)
+    {
+        foreach ($this->routes as $route) {
+            if ($route['uri'] == $uri && $route['method'] == strtoupper($method)) {
+
+                Middleware::resolve($route['middleware'] ?? null);
+                
+                return  require  base_path('Http/controllers/'.$route['controller']);
             }
         }
         $this->abort();
     }
 
-    function abort($code = \core\Response::NOT_FOUND) {
-    http_response_code($code);
+    function abort($code = \core\Response::NOT_FOUND)
+    {
+        http_response_code($code);
 
-    require  base_path("views/{$code}.php");
+        require  base_path("views/{$code}.php");
 
-    die();
+        die();
+    }
 }
-
-
-}
-
-
-

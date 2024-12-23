@@ -1,18 +1,33 @@
-<?php 
+<?php
 
 // return [
-//     '/' => 'controllers/index.php',
-//     '/about' => 'controllers/about.php',
-//     '/notes' => 'controllers/notes/index.php',
-//     '/note/create' => 'controllers/notes/create.php',
-//     '/note' => 'controllers/notes/show.php',
-//     '/contact' => 'controllers/contact.php',
+//     '/' => 'index.php',
+//     '/about' => 'about.php',
+//     '/notes' => 'notes/index.php',
+//     '/note/create' => 'notes/create.php',
+//     '/note' => 'notes/show.php',
+//     '/contact' => 'contact.php',
 // ];
 
-$router->get('/', 'controllers/index.php');
-$router->get('/about', 'controllers/about.php');
-$router->get('/notes', 'controllers/notes/index.php');
-$router->get('/note/create', 'controllers/notes/create.php');
-$router->get('/note', 'controllers/notes/show.php');
-$router->get('/contact', 'controllers/contact.php');
+$router->get('/', 'index.php');
+$router->get('/about', 'about.php');
 
+$router->get('/notes', 'notes/index.php')->only('auth');
+$router->get('/note/create', 'notes/create.php');
+$router->post('/note', 'notes/store.php');
+$router->get('/note/edit', 'notes/edit.php');
+$router->patch('/note', 'notes/update.php');
+$router->get('/note', 'notes/show.php');
+$router->delete('/note', 'notes/destroy.php');
+
+
+$router->get('/contact', 'contact.php');
+
+$router->get('/register', 'registration/create.php')->only('guest');
+$router->post('/register', 'registration/store.php');
+
+
+$router->get('/login', 'sessions/create.php')->only('guest');
+$router->post('/login', 'sessions/store.php')->only('guest');
+
+$router->delete('/logout', 'sessions/logout.php')->only('auth');

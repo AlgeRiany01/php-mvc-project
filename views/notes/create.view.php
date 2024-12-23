@@ -9,7 +9,7 @@
 
 
     <a href="/notes" class="my-5 text-blue-500 hover:underline"> Go Back</a>
-    <form method="POST" action="/note/create">
+    <form method="POST" action="/note">
         <div class="max-w-md">
             <div class="border border-gray-900/10 p-5">
                 <div class="sm:col-span-4">

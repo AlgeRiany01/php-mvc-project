@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace core;
 
@@ -6,17 +6,18 @@ use PDO;
 
 class Database
 {
-    public $con,$statement;
+    public $con, $statement;
 
     public function __construct($config)
     {
-         $dsn = 'mysql:'.http_build_query($config,'',';');
-        $this->con = new PDO($dsn, 'root', '',[
+        $dsn = 'mysql:' . http_build_query($config, '', ';');
+        $this->con = new PDO($dsn, 'root', '', [
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         ]);
     }
 
-    public function query($query, $params = []) {
+    public function query($query, $params = [])
+    {
         $this->statement = $this->con->prepare($query);
         $this->statement->execute($params);
         return $this;
@@ -34,11 +35,9 @@ class Database
     {
 
         $result =  $this->statement->fetch();
-        if(!$result){
+        if (!$result) {
             abort();
         }
         return $result;
     }
-
-
 }

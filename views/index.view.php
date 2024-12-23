@@ -6,7 +6,7 @@
 
 
 <div class=" container mx-auto my-5">
-<p>this is home page</p>
+<p>Hello <?=$_SESSION['user']['email'] ?? ''?>, this is home page</p>
 
 </div>
 
